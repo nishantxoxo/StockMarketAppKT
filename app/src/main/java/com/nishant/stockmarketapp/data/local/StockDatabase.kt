@@ -1,4 +1,4 @@
-package com.plcoding.stockmarketapp.data.local
+package com.nishant.stockmarketapp.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

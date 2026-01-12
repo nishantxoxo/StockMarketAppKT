@@ -1,4 +1,4 @@
-package com.plcoding.stockmarketapp.domain.model
+package com.nishant.stockmarketapp.domain.model
 
 data class CompanyListingModel(
     val name: String,

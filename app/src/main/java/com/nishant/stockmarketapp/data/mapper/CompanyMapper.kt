@@ -1,7 +1,7 @@
-package com.plcoding.stockmarketapp.data.mapper
+package com.nishant.stockmarketapp.data.mapper
 
-import com.plcoding.stockmarketapp.data.local.CompanyListingEntity
-import com.plcoding.stockmarketapp.domain.model.CompanyListingModel
+import com.nishant.stockmarketapp.data.local.CompanyListingEntity
+import com.nishant.stockmarketapp.domain.model.CompanyListingModel
 
 fun CompanyListingEntity.toCompanyListing(): CompanyListingModel{
     return CompanyListingModel(

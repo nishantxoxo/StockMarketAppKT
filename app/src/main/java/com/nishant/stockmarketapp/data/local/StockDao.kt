@@ -1,9 +1,8 @@
-package com.plcoding.stockmarketapp.data.local
+package com.nishant.stockmarketapp.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import retrofit2.http.Query
 
 @Dao
 interface StockDao {
