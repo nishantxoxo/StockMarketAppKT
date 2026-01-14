@@ -1,8 +1,11 @@
 package com.nishant.stockmarketapp.data.repository
 
 import coil.network.HttpException
+import com.nishant.stockmarketapp.data.csv.CSVParser
+import com.nishant.stockmarketapp.data.csv.CompanyListingParser
 import com.nishant.stockmarketapp.data.local.StockDatabase
 import com.nishant.stockmarketapp.data.mapper.toCompanyListing
+import com.nishant.stockmarketapp.data.mapper.toCompanyListingEntity
 import com.nishant.stockmarketapp.data.remote.StockApi
 import com.nishant.stockmarketapp.domain.model.CompanyListingModel
 import com.nishant.stockmarketapp.domain.repository.StockRepository
@@ -17,7 +20,8 @@ import javax.inject.Singleton
 @Singleton
 class StockRepositoryImpl @Inject constructor(
     val api: StockApi,
-    val db: StockDatabase
+    val db: StockDatabase,
+    val companyListingParser: CSVParser<CompanyListingModel>
 ): StockRepository {
 
     private val dao = db.dao
@@ -46,18 +50,34 @@ class StockRepositoryImpl @Inject constructor(
             val remoteListings = try {
 
                 val response = api.getListings()
-                response.byteStream()
+                companyListingParser.parse(response.byteStream())
+//                response.byteStream()
 
 
             } catch (e: IOException){
                 e.printStackTrace()
                 emit(Resource.Error("Couldnt load data"))
+                null
             } catch (e: HttpException){
                 e.printStackTrace()
                 emit(Resource.Error("couldnt load data from internet"))
+                null
             }
 
+            remoteListings?.let {
+                it->
 
+
+
+                dao.clearCompanyListings()
+                dao.insertCompanyListings(it.map { it.toCompanyListingEntity() })
+
+                emit(Resource.Success(
+                    data = dao.searchCompanyListing("").map { it.toCompanyListing() }
+                ))
+                emit(Resource.Loading(false))
+
+            }
 
         }
     }
