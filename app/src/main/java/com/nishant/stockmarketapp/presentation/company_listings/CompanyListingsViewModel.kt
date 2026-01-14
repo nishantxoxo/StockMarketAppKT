@@ -9,6 +9,7 @@ import com.nishant.stockmarketapp.domain.repository.StockRepository
 import com.nishant.stockmarketapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +32,14 @@ class CompanyListingsViewModel  @Inject constructor(
                 getCompanyListings(fetchFromRemote = true)
             }
             is CompanyListingEvent.OnSearchQueryChange -> {
-
+                state = state.copy(
+                    searchQuery = event.query
+                )
+                searchJob?.cancel()
+                searchJob = viewModelScope.launch {
+                    delay(500L)
+                    getCompanyListings()
+                }
             }
         }
     }
