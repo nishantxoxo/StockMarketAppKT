@@ -1,5 +1,6 @@
 package com.nishant.stockmarketapp.presentation.company_listings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,9 @@ fun CompanyListingScreen(
         OutlinedTextField(value = state.searchQuery, onValueChange = {
             viewModel.onEvent(CompanyListingEvent.OnSearchQueryChange(query = it))
         },
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
 
             placeholder = {
                 Text("search...")
@@ -52,8 +55,23 @@ fun CompanyListingScreen(
                 items(state.companies.size){
                     i ->
 
+
+                    val comp = state.companies[i]
+                    CompanyItem(
+                        company = comp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+
+                                // TODO: do navigation
+                            }.padding(16.dp)
+
+
+                    )
                     if(i < state.companies.size){
-                        Divider()
+                        Divider(modifier = Modifier.padding(
+                            horizontal = 16.dp
+                        ))
                     }
                 }
             }

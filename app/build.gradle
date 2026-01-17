@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.compose'
+
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp'
@@ -21,7 +21,7 @@ kotlin {
 
 android {
     compileSdk 34
-
+    namespace "com.nishant.stockmarketapp"
     defaultConfig {
         applicationId "com.plcoding.stockmarketapp"
         minSdk 21
@@ -52,7 +52,9 @@ android {
     buildFeatures {
         compose true
     }
-
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.5.14"
+    }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
