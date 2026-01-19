@@ -1,5 +1,6 @@
 package com.nishant.stockmarketapp.data.remote
 
+import com.nishant.stockmarketapp.data.remote.dto.CompanyInfoDto
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -24,8 +25,9 @@ interface StockApi {
 
     @GET("query?function=OVERVIEW")
     suspend fun getCompanyInfo(
-        @quer
-    )
+        @Query("symbol") symbol: String,
+        @Query("apikey") apikey: String = API_KEY
+    ) : CompanyInfoDto
 
     companion object {
         const val  API_KEY = "6KXZ8285C43NJOX7"

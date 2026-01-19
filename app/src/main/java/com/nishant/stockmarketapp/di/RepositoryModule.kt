@@ -2,8 +2,10 @@ package com.nishant.stockmarketapp.di
 
 import com.nishant.stockmarketapp.data.csv.CSVParser
 import com.nishant.stockmarketapp.data.csv.CompanyListingParser
+import com.nishant.stockmarketapp.data.csv.IntraDayParser
 import com.nishant.stockmarketapp.data.repository.StockRepositoryImpl
 import com.nishant.stockmarketapp.domain.model.CompanyListingModel
+import com.nishant.stockmarketapp.domain.model.IntradayInfo
 import com.nishant.stockmarketapp.domain.repository.StockRepository
 import dagger.Binds
 import dagger.Module
@@ -29,5 +31,10 @@ abstract class RepositoryModule {
         stockRepositoryImpl: StockRepositoryImpl
     ): StockRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindIntradayInfoParser(
+        intraDayParser: IntraDayParser
+    ): CSVParser<IntradayInfo>
 
 }
