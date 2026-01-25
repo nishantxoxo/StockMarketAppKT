@@ -12,7 +12,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
-
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -20,10 +21,20 @@ object AppModule {
     @Provides
     @Singleton
     fun provideStockApi() : StockApi{
-        return Retrofit.Builder().baseUrl(StockApi.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build().create()
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
+        return Retrofit.Builder()
+            .baseUrl(StockApi.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(StockApi::class.java)
+
+
+//   return Retrofit.Builder().baseUrl(StockApi.BASE_URL)
+//            .addConverterFactory(MoshiConverterFactory.create())
+//            .build().create()
     }
 
     @Provides

@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.Navigator
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.nishant.stockmarketapp.presentation.destinations.CompanyInfoScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -63,7 +64,7 @@ fun CompanyListingScreen(
                             .fillMaxWidth()
                             .clickable {
                                     navigator.navigate(
-                                        CompanyinfoScreenDestination(comp.symbol)
+                                        CompanyInfoScreenDestination(comp.symbol)
                                     )
                                 // TODO: do navigation
                             }.padding(16.dp)

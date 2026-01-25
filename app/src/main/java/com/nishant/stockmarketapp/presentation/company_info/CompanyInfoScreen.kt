@@ -87,7 +87,7 @@ fun CompanyInfoScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(text = "Market Summary")
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
 
                     StockChart(infos = state.stockInfos, modifier = Modifier.fillMaxWidth().height(250.dp).align(Alignment.CenterHorizontally))
